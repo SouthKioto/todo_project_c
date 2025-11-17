@@ -2,10 +2,15 @@
 #include <string.h>
 #include <time.h>
 
-// prosta todo lista z zapisem do pliku\
+// prosta todo lista z zapisem do pliku
+
+// TODO:
+//
+//  - dodac pobieranie danych z klawiatury
+//  - dodac Id do kazdego zadania
+//  - dodac usuwanie zadan
 //
 
-// TODO
 /*
 Funkcje:
   todo add "Kup mleko" — dodaje nowe zadanie
@@ -29,7 +34,9 @@ void todo_add(const char *task_title) {
   time(&now);
   char *date_time = ctime(&now);
 
-  // check file exist
+  // FIXME: add and check id in file
+
+  //  check file exist
   if (file_exist == NULL) {
     // create and write
     file = fopen(file_name, "w");
