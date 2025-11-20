@@ -6,3 +6,7 @@ main.o: main.c
 
 clean:
 	rm -rf *o main
+
+debug:
+	gcc -g main.c -o main
+

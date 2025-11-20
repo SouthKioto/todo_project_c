@@ -19,48 +19,84 @@ Funkcje:
   todo rm <id> — usuwa zadanie
   todo clear — usuwa wszystkie zadania
 
-  Plik z danymi: ~/.todo_db.csv (każdy wiersz: id,title,done)
+  Plik z danymi: ~/.todo_db.txt (każdy wiersz: id,title,done)
 */
 
-FILE *file;
-const char *file_name = "todo_db.txt";
+void get_last_id(const char *file_name) {
+  FILE *file = fopen(file_name, "r");
 
-void todo_add(const char *task_title) {
+  if (!file) {
+    printf("Nie moge otworzyc pliku");
+  }
+
+  char todo_ids[100];
+
+  char line[256];
+
+  printf("Dane\n");
+
+  while (fgets(line, sizeof(line), file)) {
+    // TODO: jak zdobyc id?
+    if (strcpy(line, "Todo_id:")) {
+
+      printf("%s", line);
+    }
+  }
+
+  fclose(file);
+}
+
+void todo_add(const char *task_title, const char *file_name) {
   // adding to file
+  FILE *file;
   FILE *file_exist = fopen(file_name, "r");
 
+  if (!file_exist) {
+    printf("Brak pliku");
+  }
+
   // additional data
+  int todo_id = 1;
+
   time_t now;
   time(&now);
   char *date_time = ctime(&now);
 
   // FIXME: add and check id in file
 
+  char *message = "Todo_id: %d\nTask Name: %s\nTask Time: %s\nDone: false\n";
+
   //  check file exist
   if (file_exist == NULL) {
     // create and write
     file = fopen(file_name, "w");
-    fprintf(file, "Task Name: %s\nTask Time: %s\n", task_title, date_time);
+    fprintf(file, message, todo_id, task_title, date_time);
     printf("Plik zostal utworzony pod nazwa %s \n", file_name);
   } else {
     // update file
     file = fopen(file_name, "a");
-    fprintf(file, "Task Name: %s\nTask Time: %s\n", task_title, date_time);
+    fprintf(file, message, todo_id, task_title, date_time);
     printf("Zadanie '%s' zostalo dodane do pliku %s \n", task_title, file_name);
   }
 
   fclose(file);
 }
 
-void todo_read() {
+void todo_read(const char *file_name) {
   // return data from file
-  file = fopen("todo_db.txt", "r");
+
+  FILE *file;
+  file = fopen(file_name, "r");
 
   char ret_data[100];
+  int i = 0;
 
   printf("Twoje zadania: \n");
 
   while (fgets(ret_data, 100, file)) {
+    // i++;
+    // printf(ret_data[i]);
+
     printf("%s", ret_data);
   }
 
@@ -69,8 +105,12 @@ void todo_read() {
 
 int main() {
 
-  todo_add("Zadanie1");
-  todo_read();
+  const char *file_name = "todo_db.txt";
+
+  // todo_add("Zadanie1", file_name);
+  //  todo_read();
+
+  get_last_id(file_name);
 
   return 0;
 }
