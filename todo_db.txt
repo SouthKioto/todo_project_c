@@ -1,0 +1,12 @@
+Todo_id: 1
+Task Name: Zadanie1
+Task Time: Thu Nov 20 21:13:32 2025
+Done: false
+Todo_id: 49
+Task Name: Zadanie1
+Task Time: Thu Nov 20 21:13:37 2025
+Done: false
+Todo_id: 57
+Task Name: Zadanie1
+Task Time: Thu Nov 20 21:14:19 2025
+Done: false
